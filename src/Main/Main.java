@@ -64,11 +64,7 @@ public class Main {
         System.out.print("Ingrese la Descripción: ");
         String descripcion = scanner.nextLine();
 
-        System.out.print("Ingrese el Código: ");
-        int codigo = scanner.nextInt();
-        scanner.nextLine(); // Consumir la nueva línea
-
-        Plan plan = new Plan(hora, dia, descripcion, codigo);
+        Plan plan = new Plan(hora, dia, descripcion, 0);
         planDAO.insertarPlan(plan);
         System.out.println("Plan insertado exitosamente.");
     }
@@ -98,7 +94,7 @@ public class Main {
         System.out.print("Ingrese la nueva Descripción: ");
         String descripcion = scanner.nextLine();
 
-        Plan plan = new Plan(hora, dia, descripcion, codigo);
+        Plan plan = new Plan(hora, dia, descripcion, 0);
         planDAO.actualizarPlan(plan);
         System.out.println("Plan actualizado exitosamente.");
     }
