@@ -7,10 +7,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlanDAO {
+
     private static final String host = "jdbc:mysql://localhost/";
     private static final String BD = "gym";
     private static final String user = "root";
     private static final String password = "";
+
+    // Método para insertar un nuevo plan
+    public void insertarPlan(Plan plan) {
+        String sql = "INSERT INTO PLAN (Hora, Dia, Descripcion, codigo) VALUES (?, ?, ?, ?)";
+
+        try (Connection conn = DriverManager.getConnection(host+BD,user,password);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, plan.getHora());
+            pstmt.setString(2, plan.getDia());
+            pstmt.setString(3, plan.getDescripcion());
+            pstmt.setInt(4, plan.getCodigo());
+
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     // Método para obtener todos los planes
     public List<Plan> obtenerPlanes() {
@@ -35,24 +54,6 @@ public class PlanDAO {
         }
 
         return planes;
-    }
-
-    // Método para insertar un nuevo plan
-    public void insertarPlan(Plan plan) {
-        String sql = "INSERT INTO PLAN (Hora, Dia, Descripcion, codigo) VALUES (?, ?, ?, ?)";
-
-        try (Connection conn = DriverManager.getConnection(host+BD,user,password);
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setString(1, plan.getHora());
-            pstmt.setString(2, plan.getDia());
-            pstmt.setString(3, plan.getDescripcion());
-            pstmt.setInt(4, plan.getCodigo());
-
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     // Método para actualizar un plan existente
