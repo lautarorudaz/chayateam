@@ -15,15 +15,14 @@ public class EntrenadorDAO {
 
     // Método para insertar un nuevo Entrenador
     public void insertarEntrenador(Entrenador entrenador) {
-        String sql = "INSERT INTO Entrenador (id, nombre, apellido, telefono) VALUES (?, ?)";
+        String sql = "INSERT INTO Entrenador (nombre, apellido, teléfono) VALUES (?, ?, ?)";
 
         try (Connection conn = DriverManager.getConnection(host+BD,user,password);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setInt(1, entrenador.getId());
-            pstmt.setString(2, entrenador.getNombre());
-            pstmt.setString(3, entrenador.getApellido());
-            pstmt.setInt(4, entrenador.getTelefono());
+            pstmt.setString(1, entrenador.getNombre());
+            pstmt.setString(2, entrenador.getApellido());
+            pstmt.setInt(3, entrenador.getTelefono());
 
             pstmt.executeUpdate();
         } catch (SQLException e) {
@@ -34,7 +33,7 @@ public class EntrenadorDAO {
     // Método para obtener todos los Entrenadores
     public List<Entrenador> obtenerEntrenadores() {
         List<Entrenador> lista = new ArrayList<>();
-        String sql = "SELECT id, nombre, especialidad FROM Entrenador";
+        String sql = "SELECT id, nombre, apellido,teléfono FROM Entrenador";
 
         try (Connection conn = DriverManager.getConnection(host+BD,user,password);
              Statement stmt = conn.createStatement();
@@ -58,17 +57,31 @@ public class EntrenadorDAO {
 
     // Método para actualizar un Entrenador
     public void actualizarEntrenador(Entrenador entrenador) {
-        String sql = "UPDATE Entrenador SET nombre = ?, especialidad = ? WHERE id = ?";
+        // Asegúrate de que el id es válido
+        if (entrenador.getId() == 0) {
+            System.out.println("ID no válido. No se puede actualizar.");
+            return; // Salir si el ID es 0
+        }
 
-        try (Connection conn = DriverManager.getConnection(host+BD,user,password);
+        String sql = "UPDATE Entrenador SET nombre = ?, apellido = ?, teléfono = ? WHERE id = ?";
+
+        try (Connection conn = DriverManager.getConnection(host + BD, user, password);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setInt(1, entrenador.getId());
-            pstmt.setString(2, entrenador.getNombre());
-            pstmt.setString(3, entrenador.getApellido());
-            pstmt.setInt(4, entrenador.getTelefono());
+            // Establecer los parámetros en el PreparedStatement
+            pstmt.setString(1, entrenador.getNombre());
+            pstmt.setString(2, entrenador.getApellido());
+            pstmt.setInt(3, entrenador.getTelefono());
+            pstmt.setInt(4, entrenador.getId());  // Asegúrate de que el id esté correctamente pasado
 
-            pstmt.executeUpdate();
+            // Ejecutar la actualización
+            int rowsUpdated = pstmt.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                System.out.println("Entrenador actualizado exitosamente.");
+            } else {
+                System.out.println("No se encontró un entrenador con el ID especificado.");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -53,7 +53,41 @@ public class Main {
             }
         } while (opcion != 5);
 
+        int opcion2 = 0;
+        do {
+            System.out.println("Seleccione una operación:");
+            System.out.println("1. Insertar un nuevo entrenador");
+            System.out.println("2. Mostrar todos los entrenadores");
+            System.out.println("3. Actualizar un entrenador");
+            System.out.println("4. Eliminar un entrenador");
+            System.out.println("5. Salir");
+            System.out.print("Opción: ");
+            opcion2 = scanner.nextInt();
+            scanner.nextLine(); // Consumir la nueva línea
+
+            switch (opcion2) {
+                case 1:
+                    insertarEntrenador();
+                    break;
+                case 2:
+                    mostrarEntrenadores();
+                    break;
+                case 3:
+                    actualizarEntrenador();
+                    break;
+                case 4:
+                    eliminarEntrenador();
+                    break;
+                case 5:
+                    System.out.println("Saliendo...");
+                    break;
+                default:
+                    System.out.println("Opción no válida. Intente de nuevo.");
+            }
+        } while (opcion2 != 5);
+
         scanner.close();
+        DesconectarBD(BD);
     }
 
     private static void insertarPlan() {
@@ -108,42 +142,7 @@ public class Main {
 
         planDAO.eliminarPlan(codigo);
         System.out.println("Plan eliminado exitosamente.");
-
-            int opcion;
-            do {
-                System.out.println("Seleccione una operación:");
-                System.out.println("1. Insertar un nuevo entrenador");
-                System.out.println("2. Mostrar todos los entrenadores");
-                System.out.println("3. Actualizar un entrenador");
-                System.out.println("4. Eliminar un entrenador");
-                System.out.println("5. Salir");
-                System.out.print("Opción: ");
-                opcion = scanner.nextInt();
-                scanner.nextLine(); // Consumir la nueva línea
-
-                switch (opcion) {
-                    case 1:
-                        insertarEntrenador();
-                        break;
-                    case 2:
-                        mostrarEntrenadores();
-                        break;
-                    case 3:
-                        actualizarEntrenador();
-                        break;
-                    case 4:
-                        eliminarEntrenador();
-                        break;
-                    case 5:
-                        System.out.println("Saliendo...");
-                        break;
-                    default:
-                        System.out.println("Opción no válida. Intente de nuevo.");
-                }
-            } while (opcion != 5);
-
-            scanner.close();
-        }
+    }
 
         private static void insertarEntrenador() {
             System.out.print("Ingrese el nombre del entrenador: ");
@@ -155,7 +154,7 @@ public class Main {
             System.out.print("Ingrese el telefono del entrenador: ");
             int telefono = scanner.nextInt();
 
-            Entrenador entrenador = new Entrenador(0, nombre, apellido, telefono);
+            Entrenador entrenador = new Entrenador(nombre, apellido, telefono);
             entrenadorDAO.insertarEntrenador(entrenador);
             System.out.println("Entrenador insertado exitosamente.");
         }
@@ -198,6 +197,5 @@ public class Main {
             entrenadorDAO.eliminarEntrenador(id);
             System.out.println("Entrenador eliminado exitosamente.");
 
-        DesconectarBD(BD);
     }
 }
