@@ -2,7 +2,6 @@ package Main;
 
 import Controller.PlanDAO;
 import Model.Plan;
-
 import java.sql.Connection;
 import java.util.List;
 import java.util.Scanner;
@@ -94,7 +93,7 @@ public class Main {
         System.out.print("Ingrese la nueva Descripción: ");
         String descripcion = scanner.nextLine();
 
-        Plan plan = new Plan(hora, dia, descripcion, 0);
+        Plan plan = new Plan(hora, dia, descripcion, codigo);
         planDAO.actualizarPlan(plan);
         System.out.println("Plan actualizado exitosamente.");
     }
