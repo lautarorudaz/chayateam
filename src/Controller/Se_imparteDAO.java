@@ -12,7 +12,7 @@ import java.util.List;
 public class Se_imparteDAO {
 
     private static final String host = "jdbc:mysql://localhost/";
-    private static final String BD = "gym";
+    private static final String BD = "chayateam";
     private static final String user = "root";
     private static final String password = "";
 
