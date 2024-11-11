@@ -1,6 +1,7 @@
 package Model;
 
 public class Socio {
+
     private int numSocio;
     private String nombre;
     private String apellido;

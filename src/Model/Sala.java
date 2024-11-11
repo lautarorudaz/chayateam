@@ -12,11 +12,6 @@ public class Sala {
         this.capacidad = capacidad;
     }
 
-    public Sala(int nro_sala, String ubicacion) {
-        this.nro_sala = nro_sala;
-        this.ubicacion = ubicacion;
-    }
-
     public int getNro_sala() {
         return nro_sala;
     }

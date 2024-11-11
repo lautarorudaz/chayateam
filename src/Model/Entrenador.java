@@ -14,16 +14,6 @@ public class Entrenador {
         this.telefono = telefono;
     }
 
-    public Entrenador(int id, String nombre) {
-        this.id = id;
-        this.nombre = nombre;
-    }
-    public Entrenador(String nombre, String apellido, long telefono) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.telefono = telefono;
-    }
-
     public int getId() {
         return id;
     }

@@ -1,6 +1,7 @@
 package Model;
 
 public class Maquina {
+
     private int codigoMaquina;
     private String marca;
     private String modelo;
