@@ -22,7 +22,7 @@ public class EntrenadorDAO {
 
             pstmt.setString(1, entrenador.getNombre());
             pstmt.setString(2, entrenador.getApellido());
-            pstmt.setInt(3, entrenador.getTelefono());
+            pstmt.setLong(3, entrenador.getTelefono());
 
             pstmt.executeUpdate();
         } catch (SQLException e) {
@@ -43,7 +43,7 @@ public class EntrenadorDAO {
                 int id = rs.getInt("Id");
                 String nombre = rs.getString("Nombre");
                 String apellido = rs.getString("Apellido");
-                int telefono = rs.getInt("Teléfono");
+                long telefono = rs.getLong("Teléfono");
 
                 Entrenador entrenador = new Entrenador(id, nombre, apellido, telefono);
                 lista.add(entrenador);
@@ -71,7 +71,7 @@ public class EntrenadorDAO {
             // Establecer los parámetros en el PreparedStatement
             pstmt.setString(1, entrenador.getNombre());
             pstmt.setString(2, entrenador.getApellido());
-            pstmt.setInt(3, entrenador.getTelefono());
+            pstmt.setLong(3, entrenador.getTelefono());
             pstmt.setInt(4, entrenador.getId());  // Asegúrate de que el id esté correctamente pasado
 
             // Ejecutar la actualización

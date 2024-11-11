@@ -5,9 +5,9 @@ public class Entrenador {
     private int id;
     private String nombre;
     private String apellido;
-    private int telefono;
+    private long telefono;
 
-    public Entrenador(int id, String nombre, String apellido, int telefono) {
+    public Entrenador(int id, String nombre, String apellido, long telefono) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -18,7 +18,7 @@ public class Entrenador {
         this.id = id;
         this.nombre = nombre;
     }
-    public Entrenador(String nombre, String apellido, int telefono) {
+    public Entrenador(String nombre, String apellido, long telefono) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.telefono = telefono;
@@ -40,11 +40,11 @@ public class Entrenador {
         this.nombre = nombre;
     }
 
-    public int getTelefono() {
+    public long getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(long telefono) {
         this.telefono = telefono;
     }
 

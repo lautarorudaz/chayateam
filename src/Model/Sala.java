@@ -6,6 +6,12 @@ public class Sala {
     private String ubicacion;
     private int capacidad;
 
+    public Sala(int nro_sala, String ubicacion, int capacidad) {
+        this.nro_sala = nro_sala;
+        this.ubicacion = ubicacion;
+        this.capacidad = capacidad;
+    }
+
     public Sala(int nro_sala, String ubicacion) {
         this.nro_sala = nro_sala;
         this.ubicacion = ubicacion;
