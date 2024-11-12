@@ -5,45 +5,47 @@ import java.sql.*;
 import java.util.*;
 
 public class SalaDAO {
+
     private static final String host = "jdbc:mysql://localhost:3306/";
-    private static final String BD = "chayateam";
+    private static final String BD = "gym";
     private static final String user = "root";
     private static final String password = "";
 
-    // Método para insertar una nueva Sala
+    //Insertar una nueva sala
     public void insertarSala(Sala sala) {
-        String sql = "INSERT INTO Sala (ubicacion, nro_sala, capacidad) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO Sala (nro_sala, Ubicación, Capacidad) VALUES (?, ?, ?)";
 
         try (Connection conn = DriverManager.getConnection(host + BD, user, password);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, sala.getUbicacion());
-            pstmt.setInt(2, sala.getNro_sala());
+            pstmt.setInt(1, sala.getNro_sala());
+            pstmt.setString(2, sala.getUbicacion());
             pstmt.setInt(3, sala.getCapacidad());
-
             pstmt.executeUpdate();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    // Método para obtener todas las Salas
+    //Obtener todas las salas
     public List<Sala> obtenerSalas() {
         List<Sala> lista = new ArrayList<>();
-        String sql = "SELECT nro_sala, ubicacion, capacidad FROM Sala";
+        String sql = "SELECT nro_sala, Ubicación, Capacidad FROM Sala";
 
         try (Connection conn = DriverManager.getConnection(host + BD, user, password);
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
-                int nroSala = rs.getInt("nro_sala");
-                String ubicacion = rs.getString("ubicacion");
-                int capacidad = rs.getInt("capacidad");
+                int nro_sala = rs.getInt("nro_sala");
+                String ubicacion = rs.getString("Ubicación");
+                int capacidad = rs.getInt("Capacidad");
 
-                Sala sala = new Sala(nroSala, ubicacion, capacidad);
+                Sala sala = new Sala(nro_sala, ubicacion, capacidad);
                 lista.add(sala);
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -51,9 +53,9 @@ public class SalaDAO {
         return lista;
     }
 
-    // Método para actualizar una Sala
+    //Actualizar una sala
     public void actualizarSala(Sala sala) {
-        String sql = "UPDATE Sala SET ubicacion = ?, capacidad = ? WHERE nro_sala = ?";
+        String sql = "UPDATE Sala SET Ubicación = ?, Capacidad = ? WHERE nro_sala = ?";
 
         try (Connection conn = DriverManager.getConnection(host + BD, user, password);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -61,23 +63,23 @@ public class SalaDAO {
             pstmt.setString(1, sala.getUbicacion());
             pstmt.setInt(2, sala.getCapacidad());
             pstmt.setInt(3, sala.getNro_sala());
-
             pstmt.executeUpdate();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    // Método para eliminar una Sala
-    public void eliminarSala(int nroSala) {
+    //Eliminar una sala
+    public void eliminarSala(int nro_sala) {
         String sql = "DELETE FROM Sala WHERE nro_sala = ?";
 
         try (Connection conn = DriverManager.getConnection(host + BD, user, password);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setInt(1, nroSala);
-
+            pstmt.setInt(1, nro_sala);
             pstmt.executeUpdate();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

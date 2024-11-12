@@ -1,46 +1,45 @@
 package Controller;
 
 import Model.Entrenador;
-
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class EntrenadorDAO {
 
     private static final String host = "jdbc:mysql://localhost/";
-    private static final String BD = "chayateam";
+    private static final String BD = "gym";
     private static final String user = "root";
     private static final String password = "";
 
-    // Método para insertar un nuevo Entrenador
+    //Insertar un nuevo entrenador
     public void insertarEntrenador(Entrenador entrenador) {
-        String sql = "INSERT INTO Entrenador (nombre, apellido, teléfono) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO Entrenador (ID, Nombre, Apellido, Teléfono) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = DriverManager.getConnection(host+BD,user,password);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, entrenador.getNombre());
-            pstmt.setString(2, entrenador.getApellido());
-            pstmt.setLong(3, entrenador.getTelefono());
-
+            pstmt.setInt(1, entrenador.getId());
+            pstmt.setString(2, entrenador.getNombre());
+            pstmt.setString(3, entrenador.getApellido());
+            pstmt.setLong(4, entrenador.getTelefono());
             pstmt.executeUpdate();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    // Método para obtener todos los Entrenadores
+    //Obtener todos los entrenadores
     public List<Entrenador> obtenerEntrenadores() {
         List<Entrenador> lista = new ArrayList<>();
-        String sql = "SELECT id, nombre, apellido,teléfono FROM Entrenador";
+        String sql = "SELECT ID, Nombre, Apellido, Teléfono FROM Entrenador";
 
         try (Connection conn = DriverManager.getConnection(host+BD,user,password);
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
-                int id = rs.getInt("Id");
+                int id = rs.getInt("ID");
                 String nombre = rs.getString("Nombre");
                 String apellido = rs.getString("Apellido");
                 long telefono = rs.getLong("Teléfono");
@@ -48,6 +47,7 @@ public class EntrenadorDAO {
                 Entrenador entrenador = new Entrenador(id, nombre, apellido, telefono);
                 lista.add(entrenador);
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -55,48 +55,34 @@ public class EntrenadorDAO {
         return lista;
     }
 
-    // Método para actualizar un Entrenador
+    //Actualizar un entrenador
     public void actualizarEntrenador(Entrenador entrenador) {
-        // Asegúrate de que el id es válido
-        if (entrenador.getId() == 0) {
-            System.out.println("ID no válido. No se puede actualizar.");
-            return; // Salir si el ID es 0
-        }
-
-        String sql = "UPDATE Entrenador SET nombre = ?, apellido = ?, teléfono = ? WHERE id = ?";
+        String sql = "UPDATE Entrenador SET Nombre = ?, Apellido = ?, Teléfono = ? WHERE ID = ?";
 
         try (Connection conn = DriverManager.getConnection(host + BD, user, password);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            // Establecer los parámetros en el PreparedStatement
             pstmt.setString(1, entrenador.getNombre());
             pstmt.setString(2, entrenador.getApellido());
             pstmt.setLong(3, entrenador.getTelefono());
-            pstmt.setInt(4, entrenador.getId());  // Asegúrate de que el id esté correctamente pasado
+            pstmt.setInt(4, entrenador.getId());
+            pstmt.executeUpdate();
 
-            // Ejecutar la actualización
-            int rowsUpdated = pstmt.executeUpdate();
-
-            if (rowsUpdated > 0) {
-                System.out.println("Entrenador actualizado exitosamente.");
-            } else {
-                System.out.println("No se encontró un entrenador con el ID especificado.");
-            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    // Método para eliminar un Entrenador
+    //Eliminar un entrenador
     public void eliminarEntrenador(int id) {
-        String sql = "DELETE FROM Entrenador WHERE id = ?";
+        String sql = "DELETE FROM Entrenador WHERE ID = ?";
 
         try (Connection conn = DriverManager.getConnection(host+BD,user,password);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, id);
-
             pstmt.executeUpdate();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

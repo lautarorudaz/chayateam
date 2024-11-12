@@ -1,6 +1,5 @@
 package Main;
 
-import Controller.*;
 import java.sql.Connection;
 import java.util.Scanner;
 import static JDBC.BDConnection.ConectarBD;
@@ -8,10 +7,10 @@ import static JDBC.BDConnection.DesconectarBD;
 
 public class Main {
 
-    private static Connection BD = null;
+    private static Connection bd = null;
 
     public static void main(String[] args){
-        BD = ConectarBD();
+        bd = ConectarBD();
 
         Scanner scanner = new Scanner(System.in);
         int opcion;
@@ -53,6 +52,6 @@ public class Main {
         } while (opcion != 6);
 
         scanner.close();
-        DesconectarBD(BD);
+        DesconectarBD(bd);
     }
 }

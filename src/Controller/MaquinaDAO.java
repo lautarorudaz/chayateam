@@ -5,46 +5,49 @@ import java.sql.*;
 import java.util.*;
 
 public class MaquinaDAO {
+
     private static final String host = "jdbc:mysql://localhost:3306/";
-    private static final String BD = "chayateam";
+    private static final String BD = "gym";
     private static final String user = "root";
     private static final String password = "";
 
-    // Método para insertar una nueva Máquina
+    //Insertar una nueva máquina
     public void insertarMaquina(Maquina maquina) {
-        String sql = "INSERT INTO Maquina (marca, modelo, nro_sala) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO Máquina (código_máquina, Marca, Modelo, nro_sala) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = DriverManager.getConnection(host + BD, user, password);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, maquina.getMarca());
-            pstmt.setString(2, maquina.getModelo());
-            pstmt.setInt(3, maquina.getNroSala());
-
+            pstmt.setInt(1, maquina.getCodigoMaquina());
+            pstmt.setString(2, maquina.getMarca());
+            pstmt.setString(3, maquina.getModelo());
+            pstmt.setInt(4, maquina.getNroSala());
             pstmt.executeUpdate();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    // Método para obtener todas las Máquinas
+    //Obtener todas las máquinas
     public List<Maquina> obtenerMaquinas() {
         List<Maquina> lista = new ArrayList<>();
-        String sql = "SELECT codigo_maquina, marca, modelo, nro_sala FROM Maquina";
+        String sql = "SELECT código_máquina, Marca, Modelo, nro_sala FROM Máquina";
 
         try (Connection conn = DriverManager.getConnection(host + BD, user, password);
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
-                int codigoMaquina = rs.getInt("codigo_maquina");
+                int codigo_maquina = rs.getInt("código_máquina");
                 String marca = rs.getString("marca");
                 String modelo = rs.getString("modelo");
-                int nroSala = rs.getInt("nro_sala");
+                int nro_sala = rs.getInt("nro_sala");
 
-                Maquina maquina = new Maquina(codigoMaquina, marca, modelo, nroSala);
+                Maquina maquina = new Maquina(codigo_maquina, marca, modelo, nro_sala);
                 lista.add(maquina);
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -52,9 +55,9 @@ public class MaquinaDAO {
         return lista;
     }
 
-    // Método para actualizar una Máquina
+    //Actualizar una máquina
     public void actualizarMaquina(Maquina maquina) {
-        String sql = "UPDATE Maquina SET marca = ?, modelo = ?, nro_sala = ? WHERE codigo_maquina = ?";
+        String sql = "UPDATE Máquina SET Marca = ?, Modelo = ?, nro_sala = ? WHERE código_máquina = ?";
 
         try (Connection conn = DriverManager.getConnection(host + BD, user, password);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -70,14 +73,14 @@ public class MaquinaDAO {
         }
     }
 
-    // Método para eliminar una Máquina
-    public void eliminarMaquina(int codigoMaquina) {
-        String sql = "DELETE FROM Maquina WHERE codigo_maquina = ?";
+    //Eliminar una máquina
+    public void eliminarMaquina(int codigo_maquina) {
+        String sql = "DELETE FROM Máquina WHERE código_máquina = ?";
 
         try (Connection conn = DriverManager.getConnection(host + BD, user, password);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setInt(1, codigoMaquina);
+            pstmt.setInt(1, codigo_maquina);
 
             pstmt.executeUpdate();
         } catch (SQLException e) {

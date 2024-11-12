@@ -10,7 +10,7 @@ public class BDConnection {
 
         Connection connection;
         String host = "jdbc:mysql://localhost/";
-        String BD = "chayateam";
+        String BD = "gym";
         String user = "root";
         String password = "";
 
