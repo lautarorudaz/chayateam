@@ -14,7 +14,7 @@ public class MaquinaDAO {
 
     //Insertar una nueva máquina
     public void insertarMaquina(Maquina maquina) {
-        String sql = "INSERT INTO Máquina (código_máquina, Marca, Modelo, nro_sala) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO Máquina (código_máquina, Marca, Modelo) VALUES (?, ?, ?)";
 
         try (Connection conn = DriverManager.getConnection(host + bd, user, password);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -22,7 +22,6 @@ public class MaquinaDAO {
             pstmt.setInt(1, maquina.getCodigoMaquina());
             pstmt.setString(2, maquina.getMarca());
             pstmt.setString(3, maquina.getModelo());
-            pstmt.setInt(4, maquina.getNroSala());
             pstmt.executeUpdate();
 
         } catch (SQLException e) {
@@ -33,7 +32,7 @@ public class MaquinaDAO {
     //Obtener todas las máquinas
     public List<Maquina> obtenerMaquinas() {
         List<Maquina> lista = new ArrayList<>();
-        String sql = "SELECT código_máquina, Marca, Modelo, nro_sala FROM Máquina";
+        String sql = "SELECT código_máquina, Marca, Modelo FROM Máquina";
 
         try (Connection conn = DriverManager.getConnection(host + bd, user, password);
              Statement stmt = conn.createStatement();
@@ -43,9 +42,8 @@ public class MaquinaDAO {
                 int codigo_maquina = rs.getInt("código_máquina");
                 String marca = rs.getString("marca");
                 String modelo = rs.getString("modelo");
-                int nro_sala = rs.getInt("nro_sala");
 
-                Maquina maquina = new Maquina(codigo_maquina, marca, modelo, nro_sala);
+                Maquina maquina = new Maquina(codigo_maquina, marca, modelo);
                 lista.add(maquina);
             }
 
@@ -58,15 +56,14 @@ public class MaquinaDAO {
 
     //Actualizar una máquina
     public void actualizarMaquina(Maquina maquina) {
-        String sql = "UPDATE Máquina SET Marca = ?, Modelo = ?, nro_sala = ? WHERE código_máquina = ?";
+        String sql = "UPDATE Máquina SET Marca = ?, Modelo = ? WHERE código_máquina = ?";
 
         try (Connection conn = DriverManager.getConnection(host + bd, user, password);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, maquina.getMarca());
             pstmt.setString(2, maquina.getModelo());
-            pstmt.setInt(3, maquina.getNroSala());
-            pstmt.setInt(4, maquina.getCodigoMaquina());
+            pstmt.setInt(3, maquina.getCodigoMaquina());
 
             pstmt.executeUpdate();
         } catch (SQLException e) {

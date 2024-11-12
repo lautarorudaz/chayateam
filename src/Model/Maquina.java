@@ -9,16 +9,14 @@ public class Maquina {
     private int codigo_maquina;
     private String marca;
     private String modelo;
-    private int nro_sala; //Clave foránea que hace referencia a la sala a la que está asociada la máquina
 
     private static final Scanner scanner = new Scanner(System.in);
     private static final MaquinaDAO maquinaDAO = new MaquinaDAO();
 
-    public Maquina(int codigo_maquina, String marca, String modelo, int nro_sala) {
+    public Maquina(int codigo_maquina, String marca, String modelo) {
         this.codigo_maquina = codigo_maquina;
         this.marca = marca;
         this.modelo = modelo;
-        this.nro_sala = nro_sala;
     }
 
     //Getters y Setters
@@ -46,14 +44,6 @@ public class Maquina {
         this.modelo = modelo;
     }
 
-    public int getNroSala() {
-        return nro_sala;
-    }
-
-    public void setNroSala(int nro_sala) {
-        this.nro_sala = nro_sala;
-    }
-
     //Crud
     public static void insertarMaquina() {
         System.out.print("Ingrese la marca de la máquina: ");
@@ -62,11 +52,7 @@ public class Maquina {
         System.out.print("Ingrese el modelo de la máquina: ");
         String modelo = scanner.nextLine();
 
-        System.out.print("Ingrese el número de la sala a la que corresponde: ");
-        int nro_sala = scanner.nextInt();
-        scanner.nextLine();
-
-        Maquina maquina = new Maquina(0, marca, modelo, nro_sala);
+        Maquina maquina = new Maquina(0, marca, modelo);
         maquinaDAO.insertarMaquina(maquina);
         System.out.println("Máquina insertada exitosamente.");
     }
@@ -77,7 +63,7 @@ public class Maquina {
             System.out.println("No hay máquinas para mostrar.");
         } else {
             for (Maquina maquina : maquinas) {
-                System.out.println("código_máquina: " + maquina.getCodigoMaquina() + " - Marca: " + maquina.getMarca() + " - Modelo: " + maquina.getModelo() + " - nro_sala: " + maquina.getNroSala());
+                System.out.println("código_máquina: " + maquina.getCodigoMaquina() + " - Marca: " + maquina.getMarca() + " - Modelo: " + maquina.getModelo());
             }
         }
     }
@@ -93,11 +79,7 @@ public class Maquina {
         System.out.print("Ingrese el modelo de la máquina: ");
         String modelo = scanner.nextLine();
 
-        System.out.print("Ingrese el número de la sala a la que corresponde: ");
-        int nro_sala = scanner.nextInt();
-        scanner.nextLine();
-
-        Maquina maquina = new Maquina(codigo_maquina, marca, modelo, nro_sala);
+        Maquina maquina = new Maquina(codigo_maquina, marca, modelo);
         maquinaDAO.actualizarMaquina(maquina);
         System.out.println("Máquina actualizada exitosamente.");
     }
