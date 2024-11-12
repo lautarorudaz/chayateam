@@ -11,8 +11,8 @@ public class Entrenador {
     private String apellido;
     private long telefono;
 
-    private static final Scanner scanner = new Scanner(System.in);
     private static final EntrenadorDAO entrenadorDAO = new EntrenadorDAO();
+    private static final Scanner scanner = new Scanner(System.in);
 
     //Constructor
     public Entrenador(int id, String nombre, String apellido, long telefono) {

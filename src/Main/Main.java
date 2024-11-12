@@ -1,6 +1,7 @@
 package Main;
 
 import java.sql.Connection;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import static JDBC.BDConnection.ConectarBD;
 import static JDBC.BDConnection.DesconectarBD;
@@ -24,8 +25,15 @@ public class Main {
             System.out.println("5. Socio");
             System.out.println("6. Salir");
             System.out.print("Opción: ");
-            opcion = scanner.nextInt();
-            scanner.nextLine();
+
+            try {
+                opcion = scanner.nextInt();
+                scanner.nextLine();
+            } catch (InputMismatchException e) {
+                System.out.println("Entrada no válida. Por favor, ingrese un número.");
+                scanner.nextLine();
+                opcion = -1;
+            }
 
             switch (opcion) {
                 case 1:
@@ -47,7 +55,9 @@ public class Main {
                     System.out.println("Saliendo...");
                     break;
                 default:
-                    System.out.println("Opción no válida. Por favor, seleccione una opción correcta.");
+                    if (opcion != -1) {
+                        System.out.println("Opción no válida. Por favor, seleccione una opción correcta.");
+                    }
             }
         } while (opcion != 6);
 
