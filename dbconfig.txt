@@ -1,0 +1,4 @@
+host=jdbc:mysql://localhost/
+bd=gym
+user=root
+password=

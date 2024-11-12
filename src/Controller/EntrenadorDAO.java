@@ -1,21 +1,22 @@
 package Controller;
 
+import JDBC.DBConfig;
 import Model.Entrenador;
 import java.sql.*;
 import java.util.*;
 
 public class EntrenadorDAO {
 
-    private static final String host = "jdbc:mysql://localhost/";
-    private static final String BD = "gym";
-    private static final String user = "root";
-    private static final String password = "";
+    private static final String host = DBConfig.getHost();
+    private static final String bd = DBConfig.getDatabase();
+    private static final String user = DBConfig.getUser();
+    private static final String password = DBConfig.getPassword();
 
     //Insertar un nuevo entrenador
     public void insertarEntrenador(Entrenador entrenador) {
         String sql = "INSERT INTO Entrenador (ID, Nombre, Apellido, Teléfono) VALUES (?, ?, ?, ?)";
 
-        try (Connection conn = DriverManager.getConnection(host+BD,user,password);
+        try (Connection conn = DriverManager.getConnection(host + bd, user, password);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, entrenador.getId());
@@ -34,7 +35,7 @@ public class EntrenadorDAO {
         List<Entrenador> lista = new ArrayList<>();
         String sql = "SELECT ID, Nombre, Apellido, Teléfono FROM Entrenador";
 
-        try (Connection conn = DriverManager.getConnection(host+BD,user,password);
+        try (Connection conn = DriverManager.getConnection(host + bd, user, password);
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
 
@@ -59,7 +60,7 @@ public class EntrenadorDAO {
     public void actualizarEntrenador(Entrenador entrenador) {
         String sql = "UPDATE Entrenador SET Nombre = ?, Apellido = ?, Teléfono = ? WHERE ID = ?";
 
-        try (Connection conn = DriverManager.getConnection(host + BD, user, password);
+        try (Connection conn = DriverManager.getConnection(host + bd, user, password);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, entrenador.getNombre());
@@ -77,7 +78,7 @@ public class EntrenadorDAO {
     public void eliminarEntrenador(int id) {
         String sql = "DELETE FROM Entrenador WHERE ID = ?";
 
-        try (Connection conn = DriverManager.getConnection(host+BD,user,password);
+        try (Connection conn = DriverManager.getConnection(host + bd, user, password);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, id);

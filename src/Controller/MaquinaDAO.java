@@ -1,21 +1,22 @@
 package Controller;
 
+import JDBC.DBConfig;
 import Model.Maquina;
 import java.sql.*;
 import java.util.*;
 
 public class MaquinaDAO {
 
-    private static final String host = "jdbc:mysql://localhost:3306/";
-    private static final String BD = "gym";
-    private static final String user = "root";
-    private static final String password = "";
+    private static final String host = DBConfig.getHost();
+    private static final String bd = DBConfig.getDatabase();
+    private static final String user = DBConfig.getUser();
+    private static final String password = DBConfig.getPassword();
 
     //Insertar una nueva máquina
     public void insertarMaquina(Maquina maquina) {
         String sql = "INSERT INTO Máquina (código_máquina, Marca, Modelo, nro_sala) VALUES (?, ?, ?, ?)";
 
-        try (Connection conn = DriverManager.getConnection(host + BD, user, password);
+        try (Connection conn = DriverManager.getConnection(host + bd, user, password);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, maquina.getCodigoMaquina());
@@ -34,7 +35,7 @@ public class MaquinaDAO {
         List<Maquina> lista = new ArrayList<>();
         String sql = "SELECT código_máquina, Marca, Modelo, nro_sala FROM Máquina";
 
-        try (Connection conn = DriverManager.getConnection(host + BD, user, password);
+        try (Connection conn = DriverManager.getConnection(host + bd, user, password);
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
 
@@ -59,7 +60,7 @@ public class MaquinaDAO {
     public void actualizarMaquina(Maquina maquina) {
         String sql = "UPDATE Máquina SET Marca = ?, Modelo = ?, nro_sala = ? WHERE código_máquina = ?";
 
-        try (Connection conn = DriverManager.getConnection(host + BD, user, password);
+        try (Connection conn = DriverManager.getConnection(host + bd, user, password);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, maquina.getMarca());
@@ -77,7 +78,7 @@ public class MaquinaDAO {
     public void eliminarMaquina(int codigo_maquina) {
         String sql = "DELETE FROM Máquina WHERE código_máquina = ?";
 
-        try (Connection conn = DriverManager.getConnection(host + BD, user, password);
+        try (Connection conn = DriverManager.getConnection(host + bd, user, password);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, codigo_maquina);

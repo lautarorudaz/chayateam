@@ -17,37 +17,37 @@ public class Main {
 
         do {
             System.out.println("Seleccione una entidad para trabajar:");
-            System.out.println("1. Plan");
+            System.out.println("1. Entrenador");
             System.out.println("2. Máquina");
-            System.out.println("3. Socio");
-            System.out.println("4. Entrenador");
-            System.out.println("5. Sala");
+            System.out.println("3. Plan");
+            System.out.println("4. Sala");
+            System.out.println("5. Socio");
             System.out.println("6. Salir");
             System.out.print("Opción: ");
             opcion = scanner.nextInt();
-            scanner.nextLine(); // Consumir la nueva línea
+            scanner.nextLine();
 
             switch (opcion) {
                 case 1:
-                    MenuPrincipal.crudPlan();
+                    MenuPrincipal.crudEntrenador();
                     break;
                 case 2:
                     MenuPrincipal.crudMaquina();
                     break;
                 case 3:
-                    MenuPrincipal.crudSocio();
+                    MenuPrincipal.crudPlan();
                     break;
                 case 4:
-                    MenuPrincipal.crudEntrenador();
+                    MenuPrincipal.crudSala();
                     break;
                 case 5:
-                    MenuPrincipal.crudSala();
+                    MenuPrincipal.crudSocio();
                     break;
                 case 6:
                     System.out.println("Saliendo...");
                     break;
                 default:
-                    System.out.println("Opción no válida. Intente de nuevo.");
+                    System.out.println("Opción no válida. Por favor, seleccione una opción correcta.");
             }
         } while (opcion != 6);
 

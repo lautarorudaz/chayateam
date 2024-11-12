@@ -1,21 +1,22 @@
 package Controller;
 
+import JDBC.DBConfig;
 import Model.Plan;
 import java.sql.*;
 import java.util.*;
 
 public class PlanDAO {
 
-    private static final String host = "jdbc:mysql://localhost/";
-    private static final String BD = "gym";
-    private static final String user = "root";
-    private static final String password = "";
+    private static final String host = DBConfig.getHost();
+    private static final String bd = DBConfig.getDatabase();
+    private static final String user = DBConfig.getUser();
+    private static final String password = DBConfig.getPassword();
 
     //Insertar un nuevo plan
     public void insertarPlan(Plan plan) {
         String sql = "INSERT INTO Plan (código_plan, Hora, Día, Descripción) VALUES (?, ?, ?, ?)";
 
-        try (Connection conn = DriverManager.getConnection(host+BD,user,password);
+        try (Connection conn = DriverManager.getConnection(host + bd, user, password);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, plan.getCodigo_plan());
@@ -34,7 +35,7 @@ public class PlanDAO {
         List<Plan> planes = new ArrayList<>();
         String sql = "SELECT código_plan, Hora, Día, Descripción FROM Plan";
 
-        try (Connection conn = DriverManager.getConnection(host+BD,user,password);
+        try (Connection conn = DriverManager.getConnection(host + bd, user, password);
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
 
@@ -59,7 +60,7 @@ public class PlanDAO {
     public void actualizarPlan(Plan plan) {
         String sql = "UPDATE Plan SET Hora = ?, Día = ?, Descripción = ? WHERE código_plan = ?";
 
-        try (Connection conn = DriverManager.getConnection(host+BD,user,password);
+        try (Connection conn = DriverManager.getConnection(host + bd, user, password);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, plan.getHora());
@@ -77,7 +78,7 @@ public class PlanDAO {
     public void eliminarPlan(int codigo_plan) {
         String sql = "DELETE FROM Plan WHERE código_plan = ?";
 
-        try (Connection conn = DriverManager.getConnection(host+BD,user,password);
+        try (Connection conn = DriverManager.getConnection(host + bd, user, password);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, codigo_plan);

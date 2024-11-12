@@ -1,21 +1,22 @@
 package Controller;
 
+import JDBC.DBConfig;
 import Model.Socio;
 import java.sql.*;
 import java.util.*;
 
 public class SocioDAO {
 
-    private static final String host = "jdbc:mysql://localhost:3306/";
-    private static final String BD = "gym";
-    private static final String user = "root";
-    private static final String password = "";
+    private static final String host = DBConfig.getHost();
+    private static final String bd = DBConfig.getDatabase();
+    private static final String user = DBConfig.getUser();
+    private static final String password = DBConfig.getPassword();
 
     //Insertar un nuevo socio
     public void insertarSocio(Socio socio) {
         String sql = "INSERT INTO Socio (num_socio, Nombre, Apellido, Dirección, Teléfono) VALUES (?, ?, ?, ?, ?)";
 
-        try (Connection conn = DriverManager.getConnection(host + BD, user, password);
+        try (Connection conn = DriverManager.getConnection(host + bd, user, password);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, socio.getNum_socio());
@@ -35,7 +36,7 @@ public class SocioDAO {
         List<Socio> lista = new ArrayList<>();
         String sql = "SELECT num_socio, Nombre, Apellido, Dirección, Teléfono FROM Socio";
 
-        try (Connection conn = DriverManager.getConnection(host + BD, user, password);
+        try (Connection conn = DriverManager.getConnection(host + bd, user, password);
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
 
@@ -61,7 +62,7 @@ public class SocioDAO {
     public void actualizarSocio(Socio socio) {
         String sql = "UPDATE Socio SET Nombre = ?, Apellido = ?, Dirección = ?, Teléfono = ? WHERE num_socio = ?";
 
-        try (Connection conn = DriverManager.getConnection(host + BD, user, password);
+        try (Connection conn = DriverManager.getConnection(host + bd, user, password);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, socio.getNombre());
@@ -80,7 +81,7 @@ public class SocioDAO {
     public void eliminarSocio(int num_socio) {
         String sql = "DELETE FROM Socio WHERE num_socio = ?";
 
-        try (Connection conn = DriverManager.getConnection(host + BD, user, password);
+        try (Connection conn = DriverManager.getConnection(host + bd, user, password);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, num_socio);
