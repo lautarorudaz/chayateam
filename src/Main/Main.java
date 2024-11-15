@@ -40,7 +40,7 @@ public class Main {
                     MenuPrincipal.crudEntrenador();
                     break;
                 case 2:
-                    MenuPrincipal.crudMaquina();
+                    MenuPrincipal.crudCancha();
                     break;
                 case 3:
                     MenuPrincipal.crudPlan();

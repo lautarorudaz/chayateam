@@ -1,8 +1,9 @@
 package Main;
 
 import java.util.Scanner;
-import static Model.Entrenador.*;
-import static Model.Maquina.*;
+import static Model.Cancha.*;
+//import static Model.Entrenador.*;
+//import static Model.Maquina.*;
 import static Model.Plan.*;
 import static Model.Sala.*;
 import static Model.Socio.*;
@@ -11,42 +12,7 @@ public class MenuPrincipal {
 
     private static final Scanner scanner = new Scanner(System.in);
 
-    public static void crudEntrenador() {
-        int opcion;
-        do {
-            System.out.println("Indique la operación que desea realizar:");
-            System.out.println("1. Insertar un nuevo entrenador");
-            System.out.println("2. Mostrar todos los entrenadores");
-            System.out.println("3. Actualizar un entrenador");
-            System.out.println("4. Eliminar un entrenador");
-            System.out.println("5. Volver al menú principal");
-            System.out.print("Opción N°: ");
-            opcion = scanner.nextInt();
-            scanner.nextLine();
-
-            switch (opcion) {
-                case 1:
-                    insertarEntrenador();
-                    break;
-                case 2:
-                    mostrarEntrenadores();
-                    break;
-                case 3:
-                    actualizarEntrenador();
-                    break;
-                case 4:
-                    eliminarEntrenador();
-                    break;
-                case 5:
-                    System.out.println("Volviendo al menú principal...");
-                    break;
-                default:
-                    System.out.println("Opción no válida. Por favor, seleccione una opción correcta.");
-            }
-        } while (opcion != 5);
-    }
-
-    public static void crudMaquina() {
+    public static void crudCancha() {
         int opcion;
         do {
             System.out.println("Indique la operación que desea realizar:");
@@ -61,16 +27,16 @@ public class MenuPrincipal {
 
             switch (opcion) {
                 case 1:
-                    insertarMaquina();
+                    crearCancha();
                     break;
                 case 2:
-                    mostrarMaquinas();
+                    listarCancha();
                     break;
                 case 3:
-                    actualizarMaquina();
+                    actualizarCancha();
                     break;
                 case 4:
-                    eliminarMaquina();
+                    eliminarCancha();
                     break;
                 case 5:
                     System.out.println("Volviendo al menú principal...");
